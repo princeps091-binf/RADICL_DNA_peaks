@@ -1,8 +1,5 @@
 #%%
 import bioframe as bf
-import numpy as np
-import altair as alta
-import subprocess
 import pandas as pd
 
 #%%
