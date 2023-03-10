@@ -1,7 +1,6 @@
 #%%
 import bioframe as bf
 import pandas as pd
-import subprocess
 #%%
 annotation_file = "/home/vipink/Documents/FANTOM6/data/annotation/FANTOM_CAT.lv3_robust.bed"
 rna_radicl_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/RADICL_peak_RNA.bed"
