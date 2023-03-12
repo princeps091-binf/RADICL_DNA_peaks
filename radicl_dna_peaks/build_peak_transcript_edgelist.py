@@ -1,6 +1,7 @@
 #%%
 import igraph as ig
 import pandas as pd
+import numpy as np
 
 #%%
 peak_inter_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/peak_DNA_read_inter_tbl.tsv"
@@ -10,6 +11,7 @@ transcript_inter_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/
 transcript_read_inter_df = pd.read_csv(transcript_inter_file,delimiter="\t")
 peak_read_inter_tbl = pd.read_csv(peak_inter_file,delimiter="\t")
 
+#%%
 # %%
 peak_transcript_map_tbl = (peak_read_inter_tbl
  .merge(transcript_read_inter_df,how='inner',left_on='read_ID',right_on='read_ID'))
@@ -23,6 +25,15 @@ peak_to_transcript_edge_list = (peak_transcript_map_tbl
  .count()
  .sort_values( by ='read_ID')
  .reset_index())
+#%%
+(peak_to_transcript_edge_list
+ .groupby('peak_ID')
+ .size()
+ .reset_index(name='counts')
+ .sort_values('counts')
+ .assign(log_value=lambda df_: np.log10(df_.loc[:,['counts']]))
+ .loc[:,'log_value']
+ .plot.density ())
 # %%
 peak_trx_graph=ig.Graph.DataFrame(peak_to_transcript_edge_list,directed=False,use_vids=False)
 # %%

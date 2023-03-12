@@ -17,6 +17,10 @@ transcript_annotation_df.columns = ['chrom','start','end',
                                     'ID','score','strand',
                                     'start_b','end_b','sym',
                                     'exon_count','exon_length','exon_start']
+#%%
+transcript_cluster_df = (bf.cluster(transcript_annotation_df,on=['strand'])
+                         .loc[:,['chrom','cluster_start','cluster_end',
+                                 'strand','cluster','ID']])
 
 # %%
 transcript_read_inter_idx = bf.overlap(transcript_annotation_df, rna_df, 
