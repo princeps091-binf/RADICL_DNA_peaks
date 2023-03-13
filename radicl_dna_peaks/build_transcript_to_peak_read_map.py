@@ -4,7 +4,6 @@ import pandas as pd
 #%%
 annotation_file = "/home/vipink/Documents/FANTOM6/data/annotation/FANTOM_CAT.lv3_robust.bed"
 rna_radicl_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/RADICL_peak_RNA.bed"
-tmp_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/tmp/tmp_res.txt"
 out_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/transcript_to_peak_reads_map.tsv"
 #%%
 rna_df = pd.read_csv(rna_radicl_file,header=None,delimiter="\t")
@@ -17,10 +16,6 @@ transcript_annotation_df.columns = ['chrom','start','end',
                                     'ID','score','strand',
                                     'start_b','end_b','sym',
                                     'exon_count','exon_length','exon_start']
-#%%
-transcript_cluster_df = (bf.cluster(transcript_annotation_df,on=['strand'])
-                         .loc[:,['chrom','cluster_start','cluster_end',
-                                 'strand','cluster','ID']])
 
 # %%
 transcript_read_inter_idx = bf.overlap(transcript_annotation_df, rna_df, 
