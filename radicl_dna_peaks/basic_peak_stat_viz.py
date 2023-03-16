@@ -5,10 +5,14 @@ import numpy as np
 
 #%%
 peak_inter_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/peak_DNA_read_inter_tbl.tsv"
+peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA/MACS/peaks/RADICL_DNA_tot_peaks.bed"
 
 #%%
 # Get peak to reads
 peak_read_inter_tbl = pd.read_csv(peak_inter_file,delimiter="\t")
+#%%
+peak_df = pd.read_csv(peak_file,header=None,delimiter="\t")
+peak_df.columns = ['chrom','start','end','ID','score',"strand","enrichment","pvalue","qvalue","peak"]
 
 # %%
 peak_summary_df = (peak_read_inter_tbl
