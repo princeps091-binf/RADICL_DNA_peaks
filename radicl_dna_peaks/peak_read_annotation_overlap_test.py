@@ -3,12 +3,12 @@ import pandas as pd
 import bioframe as bf
 import scipy.stats as stats
 #%%
-peak_read_file="/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/peak_DNA_read_inter_tbl.tsv"
+peak_read_file="/home/vipink/Documents/FANTOM6/data/RADICL_data/python_project_result/DNA_peak_analysis/IPSC_rep1_peak_DNA_read_inter_tbl.tsv"
 transcript_annotation_file="/home/vipink/Documents/FANTOM6/data/annotation/FANTOM_CAT.lv3_robust.bed"
-transcript_cluster_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/transcript_cluster.bed"
+transcript_cluster_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/python_project_result/DNA_peak_analysis/transcript_cluster.bed"
 cre_file="/home/vipink/Documents/FANTOM6/data/annotation/GRCh38-cCREs.bed"
 enh_file="/home/vipink/Documents/FANTOM6/data/annotation/GRCh38-ELS.bed"
-peak_file="/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA/MACS/peaks/RADICL_DNA_tot_peaks.bed"
+peak_file="/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/results_beta/MACS/peaks/RADICL_DNA_tot_peaks.bed"
 #%%
 peak_read_tbl = pd.read_csv(peak_read_file,delimiter="\t")
 transcript_annotation_df = pd.read_csv(transcript_annotation_file,header=None,delimiter="\t")
@@ -38,7 +38,7 @@ peak_read_in_trx = (bf.count_overlaps(peak_read_tbl,enh_df)
  .read_ID.size)
 peak_read_tot = peak_read_tbl.read_ID.size
 # %%
-obs_mat = [[peak_read_in_trx,5636408],[peak_read_tot,47843486]]
+obs_mat = [[peak_read_in_trx,5556254],[peak_read_tot,46041920]]
 chi_result = stats.chi2_contingency(obs_mat)
 # %%
 (obs_mat - chi_result.expected_freq)[0,:]
