@@ -22,10 +22,10 @@ bin_to_ID_df = (chicane_anno_df
  .assign(start=lambda df_:df_.start.astype('int64'),
          end=lambda df_:df_.end.astype('int64'))
  .assign(interaction_ID=chicane_anno_df.loc[:,'interaction_ID']))
-# %%
 bin_to_inter_sing_df = (chicane_inter_df
  .merge(bin_to_ID_df))
-# %%
+
+#%%
 dna_bin_inter_df = (bin_to_inter_sing_df
  .query('sig_CHICANE_iPSC == "yes"')
  .groupby(['chrom','start','end'])
