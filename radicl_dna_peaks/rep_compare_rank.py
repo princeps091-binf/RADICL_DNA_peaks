@@ -4,11 +4,11 @@ import bioframe as bf
 import numpy as np
 import altair as alt
 #%%
-rep1_peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/results_beta/MACS/peaks/RADICL_DNA_tot_peaks.bed"
-rep2_peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/Neuron/replicate1/results/MACS/peaks/RADICL_DNA_tot_peaks.bed"
+rep1_peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/results_clean/MACS/peaks/RADICL_DNA_tot_peaks.bed"
+rep2_peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate2/results_clean/MACS/peaks/RADICL_DNA_tot_peaks.bed"
 
-rep1_bdg_folder = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/results_beta/MACS/qvalue_track/"
-rep2_bdg_folder = "/home/vipink/Documents/FANTOM6/data/RADICL_data/Neuron/replicate1/results/MACS/qvalue_track/"
+rep1_bdg_folder = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/results_clean/MACS/qvalue_track/"
+rep2_bdg_folder = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate2/results_clean/MACS/qvalue_track/"
 
 # %%
 rep1_peak_df = pd.read_csv(rep1_peak_file,header=None,delimiter="\t")
@@ -58,6 +58,6 @@ scatter_chart = (alt.Chart(pd.concat(dfs).assign(tot_rank1=lambda df_:df_.qvalue
 
 # %%
 
-scatter_chart.save(f"/home/vipink/Documents/FANTOM6/litt/poster/img/neuron_vs_ipsc_rank.html", scale_factor=1.0)
+scatter_chart.save(f"/home/vipink/Documents/FANTOM6/litt/poster/img/rep1_vs_rep2_rank.html", scale_factor=1.0)
 
 # %%

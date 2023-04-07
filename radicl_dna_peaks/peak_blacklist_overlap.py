@@ -8,6 +8,8 @@ ipsc_peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate
 neuron_peak_read_file="/home/vipink/Documents/FANTOM6/data/RADICL_data/python_project_result/DNA_peak_analysis/Neuron_rep1_peak_DNA_read_inter_tbl.tsv"
 ipsc_peak_read_file="/home/vipink/Documents/FANTOM6/data/RADICL_data/python_project_result/DNA_peak_analysis/IPSC_rep1_peak_DNA_read_inter_tbl.tsv"
 
+transcript_annotation_file="/home/vipink/Documents/FANTOM6/data/annotation/FANTOM_CAT.lv3_robust.bed"
+
 black_list_file = "/home/vipink/Documents/FANTOM6/data/annotation/hg38-blacklist.v2.bed"
 
 #%%
@@ -16,6 +18,13 @@ neuron_peak_df.columns = ['chrom','start','end','ID','scoreA',"sym",'scoreB','sc
 ipsc_peak_df=pd.read_csv(ipsc_peak_file,sep="\t",header=None)
 ipsc_peak_df.columns = ['chrom','start','end','ID','scoreA',"sym",'scoreB','scoreC','scoreD','scoreE']
 #%%
+transcript_annotation_df = pd.read_csv(transcript_annotation_file,header=None,delimiter="\t")
+transcript_annotation_df.columns = ['chrom','start','end',
+                                    'ID','score','strand',
+                                    'start_b','end_b','sym',
+                                    'exon_count','exon_length','exon_start']
+
+#%%
 black_list_df=pd.read_csv(black_list_file,sep="\t",header=None)
 black_list_df.columns = ['chrom','start','end','label']
 #%%
@@ -23,7 +32,7 @@ neuron_peak_read_df=pd.read_csv(neuron_peak_read_file,sep="\t",header=0)
 ipsc_peak_read_df=pd.read_csv(ipsc_peak_read_file,sep="\t",header=0)
 
 # %%
-bf.count_overlaps(neuron_peak_df,black_list_df).query('count > 0')
+bf.count_overlaps(transcript_annotation_df,black_list_df).query('count > 0')
 #reads
 #Neuron:918229/8400122 -> 10%
 #iPSC:923796/1356429 -> 68 %
