@@ -4,8 +4,8 @@ import altair as alt
 import numpy as np
 
 #%%
-peak_inter_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA_peak_analysis/peak_DNA_read_inter_tbl.tsv"
-peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/result/DNA/MACS/peaks/RADICL_DNA_tot_peaks.bed"
+peak_inter_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/result/DNA_peak_analysis/peak_DNA_read_inter_tbl.tsv"
+peak_file = "/home/vipink/Documents/FANTOM6/data/RADICL_data/IPSC/replicate1/results_clean/MACS/peaks/RADICL_DNA_tot_peaks.bed"
 
 #%%
 # Get peak to reads
