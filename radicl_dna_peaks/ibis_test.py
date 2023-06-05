@@ -31,3 +31,9 @@ t_intra = t.filter(t.RNA_chrom == t.DNA_chrom).execute()
 # %%
 t_intra.inter_label.value_counts()
 # %%
+(t
+ .group_by(['RNA_chrom','RNA_start','RNA_strand',
+            'DNA_chrom','DNA_start','DNA_strand'])
+ .count()
+ .execute())
+# %%
