@@ -9,22 +9,15 @@ import holoviews as hv
 
 import multiprocessing
 #%%
-peak_file = "/home/vipink/Documents/FANTOM6/RADICL_hotspot/workflow/data/results/DNA/IPSC_replicate1/IPSC_replicate1_all_peak.bed"
-read_stem = "/home/vipink/Documents/FANTOM6/RADICL_hotspot/workflow/data/processed/DNA/chr/IPSC_replicate1_clean_DNA_"
-bdg_stem = "/home/vipink/Documents/FANTOM6/RADICL_hotspot/workflow/data/results/DNA/IPSC_replicate1/bdg/"
+peak_file = "/home/vipink/Documents/FANTOM6/RADICL_hotspot/workflow/data/results/DNA/NSC_replicate1/NSC_replicate1_all_peak.bed"
+read_stem = "/home/vipink/Documents/FANTOM6/RADICL_hotspot/workflow/data/processed/DNA/chr/NSC_replicate1_clean_DNA_"
+bdg_stem = "/home/vipink/Documents/FANTOM6/RADICL_hotspot/workflow/data/results/DNA/NSC_replicate1/bdg/"
 #%%
 peak_df = pd.read_csv(peak_file,header=None,delimiter="\t")
 peak_df.columns = ['chrom','start','end','ID','score',"strand","enrichment","pvalue","qvalue","peak"]
-# %%
-dist_df = bf.closest(peak_df.drop_duplicates())
-# %%
-plot = dist_df.assign(ld = lambda df_:list(np.log10(df_.distance))).hvplot.kde('ld')
-hvplot.save(plot, 'test.html')
-
-
 
 #%%
-chromo = "chr1"
+chromo = "chr19"
 chr_peak_df = (peak_df
                .query('chrom == @chromo')
                .assign(width = lambda df_:df_.end-df_.start)
@@ -113,12 +106,18 @@ chr_bdg_df = (pd.read_csv(f"{bdg_stem}{chromo}.bdg",delimiter = "\t",header=None
 # %%
 qpois_track_df = bf.overlap(chr_bdg_df,chr_processed_peak_df).query("chrom_.notnull()")
 # %%
-plot = qpois_track_df.hvplot.errorbars(xerr1='start',xerr2='end',y='qpois')
-# %%
-plot = hv.Segments(qpois_track_df.query('start > 228608516').query('end < 228646431'),["start",'qpois','end','qpois'])
-plot = plot.opts(line_width=50)
+target_cl = chr_processed_peak_df.sort_values('npeak',ascending=False).iloc[1,:]
+plot = hv.Segments(qpois_track_df.query('start > @target_cl.start').query('end < @target_cl.end'),["start",'qpois','end','qpois'])
+plot = plot.opts(line_width=10)
 
 hvplot.save(plot, 'test.html')
-
+# %%
+(bf.closest(chr_processed_peak_df)
+ .assign(ld=lambda df_:list(np.log10(df_.width)))
+ .hvplot.kde('ld'))
+# %%
+(bf.closest(chr_peak_df)
+ .assign(ld=lambda df_:list(np.log10(df_.width)))
+ .hvplot.kde('ld'))
 
 # %%
